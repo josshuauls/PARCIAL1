@@ -1,0 +1,39 @@
+Ejemplo 1:
+killa(){
+print("Hola Mundo");
+return 0;
+}
+
+Ejemplo 2:
+int hola(int wasi){
+    wasi = wasi + 5;
+    return wasi;
+}
+
+Ejemplo 3:
+float camion(int ojo, float camello){
+    print("esta es la funcion camello");
+    return camello;
+}
+killa(){
+    print("Este es el main");
+    int carro;
+    float camioneta;
+    while(carro < camioneta){
+        print("este es un bucle");
+    }
+    return 0;
+}
+
+Ejemplo 4:
+int carro = 10;
+int avion = 20;
+if(carro == 10){
+    print("carro vale 10");
+}
+if(avion != 20){
+    print("avion es diferente de 20");
+}
+else{
+    print("avion es 20");
+}
