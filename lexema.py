@@ -16,7 +16,8 @@ def ejecutar_lexema():
     'else' : 'ELSE',
     'killa' : 'KILLA',
     'false' : 'BOOL',
-    'true' : 'BOOL'
+    'true' : 'BOOL',
+    'function' : 'FUNCTION'
   }
 
   tokens = ['NUM','DECM','ID',
@@ -109,5 +110,5 @@ def ejecutar_lexema():
     return entrada_lexema
     print("Se ejecuto correctamente")
 
-print(ejecutar_lexema()[0])
-print("Se ejecuto correctamente")
+#print(ejecutar_lexema()[0])
+print("Se ejecuto correctamente el lexema")

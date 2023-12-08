@@ -1,13 +1,4 @@
-float camion(int ojo, float camello){
-    print("esta es la funcion camello");
-    return camello;
-}
 killa(){
-    print("Este es el main");
-    int carro;
-    float camioneta;
-    while(carro < camioneta){
-        print("este es un bucle");
-    }
+    int a = 4/2+5;
     return 0;
 }

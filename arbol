@@ -1,0 +1,232 @@
+// Árbol de Análisis Sintáctico
+digraph {
+	1 [label="ID: 1
+Symbol: GLOBAL
+Lexeme: None" fillcolor=lightblue style=filled]
+	1 -> 3
+	3 [label="ID: 3
+Symbol: START_KILLA
+Lexeme: None" fillcolor=yellow style=filled]
+	3 -> 13
+	13 [label="ID: 13
+Symbol: KILLA
+Lexeme: killa
+Line: 1
+Position: 0" fillcolor=lightgreen style=filled]
+	3 -> 12
+	12 [label="ID: 12
+Symbol: PARENT_OP
+Lexeme: (
+Line: 1
+Position: 5" fillcolor=lightgreen style=filled]
+	3 -> 11
+	11 [label="ID: 11
+Symbol: PARENT_CL
+Lexeme: )
+Line: 1
+Position: 6" fillcolor=lightgreen style=filled]
+	3 -> 10
+	10 [label="ID: 10
+Symbol: KEY_OP
+Lexeme: {
+Line: 1
+Position: 7" fillcolor=lightgreen style=filled]
+	3 -> 9
+	9 [label="ID: 9
+Symbol: START_AMBIT
+Lexeme: None" fillcolor=yellow style=filled]
+	9 -> 14
+	14 [label="ID: 14
+Symbol: VARIABLE_AMBIT
+Lexeme: None" fillcolor=yellow style=filled]
+	14 -> 17
+	17 [label="ID: 17
+Symbol: TYPE
+Lexeme: None" fillcolor=yellow style=filled]
+	17 -> 18
+	18 [label="ID: 18
+Symbol: TYPE_INT
+Lexeme: int
+Line: 2
+Position: 13" fillcolor=lightgreen style=filled]
+	14 -> 16
+	16 [label="ID: 16
+Symbol: ID
+Lexeme: a
+Line: 2
+Position: 17" fillcolor=lightgreen style=filled]
+	14 -> 15
+	15 [label="ID: 15
+Symbol: OPER_ID
+Lexeme: None" fillcolor=yellow style=filled]
+	15 -> 20
+	20 [label="ID: 20
+Symbol: OPER_ASI
+Lexeme: =
+Line: 2
+Position: 19" fillcolor=lightgreen style=filled]
+	15 -> 19
+	19 [label="ID: 19
+Symbol: LINECODE_AMBIT
+Lexeme: None" fillcolor=yellow style=filled]
+	19 -> 23
+	23 [label="ID: 23
+Symbol: LINE
+Lexeme: None" fillcolor=yellow style=filled]
+	23 -> 25
+	25 [label="ID: 25
+Symbol: VALUE_INIT
+Lexeme: None" fillcolor=yellow style=filled]
+	25 -> 26
+	26 [label="ID: 26
+Symbol: VALUE_PARENT
+Lexeme: None" fillcolor=yellow style=filled]
+	26 -> 27
+	27 [label="ID: 27
+Symbol: VALUE
+Lexeme: None" fillcolor=yellow style=filled]
+	27 -> 28
+	28 [label="ID: 28
+Symbol: NUM
+Lexeme: 4
+Line: 2
+Position: 21" fillcolor=lightgreen style=filled]
+	23 -> 24
+	24 [label="ID: 24
+Symbol: OPER_GENERAL
+Lexeme: None" fillcolor=yellow style=filled]
+	24 -> 30
+	30 [label="ID: 30
+Symbol: OPER_MATH
+Lexeme: None" fillcolor=yellow style=filled]
+	30 -> 31
+	31 [label="ID: 31
+Symbol: OPER_DIV
+Lexeme: /
+Line: 2
+Position: 22" fillcolor=lightgreen style=filled]
+	24 -> 29
+	29 [label="ID: 29
+Symbol: LINE
+Lexeme: None" fillcolor=yellow style=filled]
+	29 -> 33
+	33 [label="ID: 33
+Symbol: VALUE_INIT
+Lexeme: None" fillcolor=yellow style=filled]
+	33 -> 34
+	34 [label="ID: 34
+Symbol: VALUE_PARENT
+Lexeme: None" fillcolor=yellow style=filled]
+	34 -> 35
+	35 [label="ID: 35
+Symbol: VALUE
+Lexeme: None" fillcolor=yellow style=filled]
+	35 -> 36
+	36 [label="ID: 36
+Symbol: NUM
+Lexeme: 2
+Line: 2
+Position: 23" fillcolor=lightgreen style=filled]
+	29 -> 32
+	32 [label="ID: 32
+Symbol: OPER_GENERAL
+Lexeme: None" fillcolor=yellow style=filled]
+	32 -> 38
+	38 [label="ID: 38
+Symbol: OPER_MATH
+Lexeme: None" fillcolor=yellow style=filled]
+	38 -> 39
+	39 [label="ID: 39
+Symbol: OPER_ADD
+Lexeme: +
+Line: 2
+Position: 24" fillcolor=lightgreen style=filled]
+	32 -> 37
+	37 [label="ID: 37
+Symbol: LINE
+Lexeme: None" fillcolor=yellow style=filled]
+	37 -> 41
+	41 [label="ID: 41
+Symbol: VALUE_INIT
+Lexeme: None" fillcolor=yellow style=filled]
+	41 -> 42
+	42 [label="ID: 42
+Symbol: VALUE_PARENT
+Lexeme: None" fillcolor=yellow style=filled]
+	42 -> 43
+	43 [label="ID: 43
+Symbol: VALUE
+Lexeme: None" fillcolor=yellow style=filled]
+	43 -> 44
+	44 [label="ID: 44
+Symbol: NUM
+Lexeme: 5
+Line: 2
+Position: 25" fillcolor=lightgreen style=filled]
+	37 -> 40
+	40 [label="ID: 40
+Symbol: OPER_GENERAL
+Lexeme: None" fillcolor=yellow style=filled]
+	40 -> 45
+	45 [label="ID: 45
+Symbol: e
+Lexeme: None" fillcolor=lightgreen style=filled]
+	19 -> 22
+	22 [label="ID: 22
+Symbol: ENDLINE
+Lexeme: ;
+Line: 2
+Position: 26" fillcolor=lightgreen style=filled]
+	19 -> 21
+	21 [label="ID: 21
+Symbol: START_AMBIT
+Lexeme: None" fillcolor=yellow style=filled]
+	21 -> 46
+	46 [label="ID: 46
+Symbol: LINECODE_AMBIT
+Lexeme: None" fillcolor=yellow style=filled]
+	46 -> 47
+	47 [label="ID: 47
+Symbol: e
+Lexeme: None" fillcolor=lightgreen style=filled]
+	3 -> 8
+	8 [label="ID: 8
+Symbol: RETURN
+Lexeme: return
+Line: 3
+Position: 32" fillcolor=lightgreen style=filled]
+	3 -> 7
+	7 [label="ID: 7
+Symbol: NUM
+Lexeme: 0
+Line: 3
+Position: 39" fillcolor=lightgreen style=filled]
+	3 -> 6
+	6 [label="ID: 6
+Symbol: ENDLINE
+Lexeme: ;
+Line: 3
+Position: 40" fillcolor=lightgreen style=filled]
+	3 -> 5
+	5 [label="ID: 5
+Symbol: KEY_CL
+Lexeme: }
+Line: 4
+Position: 42" fillcolor=lightgreen style=filled]
+	3 -> 4
+	4 [label="ID: 4
+Symbol: GLOBAL
+Lexeme: None" fillcolor=yellow style=filled]
+	4 -> 48
+	48 [label="ID: 48
+Symbol: START
+Lexeme: None" fillcolor=yellow style=filled]
+	48 -> 49
+	49 [label="ID: 49
+Symbol: LINECODE
+Lexeme: None" fillcolor=yellow style=filled]
+	49 -> 50
+	50 [label="ID: 50
+Symbol: e
+Lexeme: None" fillcolor=lightgreen style=filled]
+}

@@ -1,0 +1,2 @@
+.data
+var_a:	.word	0:1
