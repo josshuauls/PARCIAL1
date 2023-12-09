@@ -1,2 +1,7 @@
 .data
-var_a:	.word	0:1
+var_x:	.word	0:1
+out_var_x: .asciiz "\nx = "
+var_b:	.word	0:1
+out_var_b: .asciiz "\nb = "
+var_c:	.word	0:1
+out_var_c: .asciiz "\nc = "

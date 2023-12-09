@@ -1,4 +1,10 @@
 killa(){
-    int a = 4/2+5;
+    int x = 15;
+    if(x >= 20){
+        int b = 10;
+    }
+    else{
+        int c = 5;
+    }
     return 0;
 }

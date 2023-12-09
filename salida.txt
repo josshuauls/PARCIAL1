@@ -1,19 +1,60 @@
 .data
-var_a:	.word	0:1
+var_x:	.word	0:1
+out_var_x: .asciiz "\nx = "
+var_b:	.word	0:1
+out_var_b: .asciiz "\nb = "
+var_c:	.word	0:1
+out_var_c: .asciiz "\nc = "
 .text
 main:
 
-li $a0,4
-sw $a0 0($sp)
-addiu $sp $sp-4
-li $a0,2
-lw $t1 4($sp)
-div $a0 $t1 $a0
-addiu $sp $sp 4
-sw $a0 0($sp)
-addiu $sp $sp-4
+li $a0,15
+la $t0, var_x
+sw $a0, 0($t0)
+li $v0, 4
+la $a0, out_var_x
+syscall
+la $t0, var_x
+lw $a0, 0($t0)
+li $v0, 1
+syscall
+
+
+la $t0, var_x
+lw $a0, 0($t0)
+sw $a0, 0($sp)
+add $sp, $sp, -4
+li $a0, 20
+lw $t1, 4($sp)
+add $sp, $sp, 4
+bge $a0, $t1, label_false
+
+label_true:
+li $a0,10
+la $t0, var_b
+sw $a0, 0($t0)
+li $v0, 4
+la $a0, out_var_b
+syscall
+la $t0, var_b
+lw $a0, 0($t0)
+li $v0, 1
+syscall
+
+b label_end
+
+label_false:
 li $a0,5
-lw $t1 4($sp)
-add $a0 $t1 $a0
-addiu $sp $sp 4
+la $t0, var_c
+sw $a0, 0($t0)
+li $v0, 4
+la $a0, out_var_c
+syscall
+la $t0, var_c
+lw $a0, 0($t0)
+li $v0, 1
+syscall
+
+
+label_end:
 jr $ra

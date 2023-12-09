@@ -27,6 +27,7 @@ class NodeTree:
 # Cargar la tabla de análisis sintáctico
 tabla = pd.read_csv("tabla4.csv", index_col=0)
 
+
 # Inicializar la pila y el árbol
 stack = []
 symbol_E = NodeStack('GLOBAL', None)
@@ -255,19 +256,78 @@ def busqueda_Inicial_Main(node):
             funcionActual = find_node_by_id(root,llamadoFuncion(node))
             print(funcionActual.id)
         if node.symbol == "LINE" and node.father.symbol == "LINECODE_AMBIT":
-            pilaCarlitos.append(node.children[-1].children[-1].children[-1].children[-1].type)
+            if node.children[-1].children[-1].children[-1].children[-1].type == None:
+                pilaCarlitos.append(buscarCopias(node.children[-1].children[-1].children[-1].children[-1].lexeme))
+            else:
+                pilaCarlitos.append(node.children[-1].children[-1].children[-1].children[-1].type)
             print(node.children[-1].children[-1].children[-1].children[-1].id)
-            asseExpresion(node.children[-1].children[-1].children[-1].children[-1])
+            if node.children[-1].children[-1].children[-1].children[-1].symbol != "ID":
+                asseExpresion(node.children[-1].children[-1].children[-1].children[-1])
             teoremaCarlitos(node)
             if node.father.father.children[-1].symbol == "OPER_ASI":
                 tipoIdActual = node.father.father.father.children[-1].children[-1].lexeme
+                print("----------------------------------------------")
+                print(tipoIdActual)
                 #llamar funcion ASSEACTUALIZAR VARIABLE, para guardar variable
+                asseAsignar(node.father.father.father.children[-2].lexeme)
                 verificarTipos(tipoIdActual,pilaCarlitos.pop())
             #otra funcion
+        if node.symbol == "IF":
+            print("SE DETECTO UN IFFFFFFFFFFFFFFF")
+            #cuerpo.write("\nIFFFFFFFFFFFFFF")
+            #primer parametro
+            if node.father.children[-3].children[-1].children[-1].symbol == "ID":
+                ifVariable(node.father.children[-3].children[-1].children[-1])
+            elif node.father.children[-3].children[-1].children[-1].symbol == "NUM":
+                ifNumero(node.father.children[-3].children[-1].children[-1])
+            #push
+            cuerpo.write("\nsw $a0, 0($sp)\nadd $sp, $sp, -4")
+            #segundo parametro
+            if node.father.children[-3].children[-3].children[-1].symbol == "ID":
+                ifVariable(node.father.children[-3].children[-3].children[-1])
+            elif node.father.children[-3].children[-3].children[-1].symbol == "NUM":
+                ifNumero(node.father.children[-3].children[-3].children[-1])
+            #comparacion
+            cuerpo.write("\nlw $t1, 4($sp)\nadd $sp, $sp, 4")
+            ifComparador(node.father.children[-3].children[-2].children[-1])
+            #cuerpo.write("\nFin del IF\n")
 
+            cuerpo.write("\n\nlabel_true:")
+        if node.symbol =="IF_ELSE":
+            print("SE ENCONTROOOO IF_ELSE")
+            cuerpo.write("b label_end\n\nlabel_false:")
+        if node.symbol == "LINECODE_AMBIT" and node.father.father.children[1].symbol == "IF_ELSE":
+            print("CERRAMOS ELSE")
+            cuerpo.write("\nlabel_end:")
         for child in reversed(node.children):
             busqueda_Inicial_Main(child)
+def ifComparador(node):
+    if node.symbol == "OPER_MYQ":
+        print("EL COMPARADOR ES MAYOR QUE")
+        cuerpo.write("\nbgt $a0, $t1, label_false")
+    elif node.symbol == "OPER_MNQ":
+        print("EL COMPARADOR ES MENOR QUE")
+        cuerpo.write("\nblt $a0, $t1, label_false")
+    elif node.symbol == "OPER_MYI":
+        print("EL COMPARADOR ES MAYOR IGUAL QUE")
+        cuerpo.write("\nbge $a0, $t1, label_false")
+    elif node.symbol == "OPER_MNI":
+        print("EL COMPARADOR ES MENOR IGUAL QUE")
+        cuerpo.write("\nble $a0, $t1, label_false")
+    elif node.symbol == "OPER_IQL":
+        print("EL COMPARADOR ES IGUAL QUE")
+        cuerpo.write("\nbne $a0, $t1, label_false")
+    elif node.symbol == "OPER_DIF":
+        print("EL COMPARADOR ES DIFERENTE QUE")
+        cuerpo.write("\nbeq $a0, $t1, label_false")
+def ifVariable(node):
+    print("Se encontro VARIABLE IFFFFFFF")
+    cuerpo.write("\nla $t0, var_"+node.lexeme)
+    cuerpo.write("\nlw $a0, 0($t0)")
 
+def ifNumero(node):
+    print("Se encontro NUMERO IFFFFFFFFF")
+    cuerpo.write("\nli $a0, "+str(node.lexeme))
 #BUSCAR FUNCION MAIN "KILLA()"
 def buscarMain(node):
     if node.symbol == "START_KILLA":
@@ -290,21 +350,18 @@ def separarMain(node):
         print("No existe el main")
         exit(1)
 
-def buscarCopias(Tabla):
+def buscarCopias(nombre):
     for a in range(len(Tabla)):
-        for b in range(len(Tabla)):
-            if a != b:
-                if Tabla[a]['Nombre'] == Tabla[b]['Nombre']:
-                    print("Ya esta declarado")
-                    print("Error linea:")
-                    nodo_actual=find_node_by_id(root,Tabla[a]['ID'])
-                    print(nodo_actual.children[-2].line)
-                    exit(1)
+        if Tabla[a]['Nombre'] == nombre:
+            return Tabla[a]['Tipo']
+        else:
+            print("VARIABLE NO DEFINIDA")
+            exit(0)
 
 
 def teoremaCarlitos(node):
     if node is not None:
-        if node.symbol == "VALUE" and node.father.father.father.father.symbol != "LINECODE_AMBIT":
+        if node.symbol == "VALUE" and node.father.father.father.father.symbol != "LINECODE_AMBIT" and node.children[-1].symbol != "ID":
             print("se encontro un VALUE")
             print(node.children[0].lexeme)
             print(node.children[0].type)
@@ -312,12 +369,22 @@ def teoremaCarlitos(node):
             print("dato 1:",pilaCarlitos[-1])
             print("dato 2:",node.children[0].type)
             print("operador:",operador)
-            asseOperacion(node.children[0],operador)
-            pilaCarlitos.append(verificarTipos(pilaCarlitos.pop(),node.children[0].type,operador))
-            print("resultado:",pilaCarlitos[-1])
-            #pilaCarlitos.append(node.children[0])
+            if operador != "=":
+                asseOperacion(node.children[0],operador)
+                pilaCarlitos.append(verificarTipos(pilaCarlitos.pop(),node.children[0].type,operador))
+                print("resultado:",pilaCarlitos[-1])
+                #pilaCarlitos.append(node.children[0])
+            else:
+                asseExpresion(node.children[0])
         for child in reversed(node.children):
             teoremaCarlitos(child)
+
+def asseAsignar(nombre):
+    cabecera.write("\nout_var_"+nombre+": .asciiz \"\\n"+nombre+" = \"")
+    cuerpo.write("\nla $t0, var_"+nombre+"\nsw $a0, 0($t0)")
+    cuerpo.write("\nli $v0, 4\nla $a0, out_var_"+nombre+"\nsyscall")
+    cuerpo.write("\nla $t0, var_"+nombre+"\nlw $a0, 0($t0)")
+    cuerpo.write("\nli $v0, 1\nsyscall\n\n")
 
 def asseOperacion(node, operador):
     if operador == "+":
